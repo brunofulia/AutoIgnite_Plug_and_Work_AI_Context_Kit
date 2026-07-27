@@ -48,25 +48,25 @@ graph TD
     %% =================================================
     subgraph DG["DETERMINISTIC GOVERNANCE LAYER"]
 
-        A[👤 User / IDE / AI]
-        B[AGENTS.md<br/>(Universal Entry Point)]
+        A["👤 User / IDE / AI"]
+        B["AGENTS.md<br/>(Universal Entry Point)"]
 
         A --> B
-        B --> C[Session Initialization Ritual<br/>(core_scripts/start_session.py)]
-        C --> D[Context Ingestion<br/>(core_input/ & generate_index.py)]
+        B --> C["Session Initialization Ritual<br/>(core_scripts/start_session.py)"]
+        C --> D["Context Ingestion<br/>(core_input/ & generate_index.py)"]
 
         subgraph GE["Governance Engine"]
-            D --> E[Hierarchy (HIERARCHY.md)<br/>Policies (RULES.md) • Role (ROLE.md)]
-            E --> F{Consistency Validation<br/>(validate_hierarchy.py)}
+            D --> E["Hierarchy (HIERARCHY.md)<br/>Policies (RULES.md) • Role (ROLE.md)"]
+            E --> F{"Consistency Validation<br/>(validate_hierarchy.py)"}
 
-            F -->|Invalid State| G[Controlled KO State<br/>Exit Code != 0 / Execution Blocked]
-            F -->|Valid State| H[Context Assembly Engine]
+            F -->|Invalid State| G["Controlled KO State<br/>Exit Code != 0 / Execution Blocked"]
+            F -->|Valid State| H["Context Assembly Engine"]
         end
 
         subgraph MEM["Tiered Memory Architecture"]
-            M1[Active Memory<br/>(CURRENT_STATE.md)]
-            M2[Working Memory<br/>(SESSION_SCRATCH.md)]
-            M3[Reference Memory<br/>(LOG.md / Reference Archive)]
+            M1["Active Memory<br/>(CURRENT_STATE.md)"]
+            M2["Working Memory<br/>(SESSION_SCRATCH.md)"]
+            M3["Reference Memory<br/>(LOG.md / Reference Archive)"]
 
             M1 --> H
             M2 --> H
@@ -79,7 +79,7 @@ graph TD
     %% PROBABILISTIC AI LAYER
     %% =================================================
     subgraph AI_LAYER["PROBABILISTIC AI LAYER"]
-        H --> I[LLM Runtime<br/>Reasoning & Generation]
+        H --> I["LLM Runtime<br/>Reasoning & Generation"]
     end
 
     %% =================================================
@@ -87,13 +87,13 @@ graph TD
     %% =================================================
     subgraph CL["DETERMINISTIC CONTINUITY LAYER"]
 
-        I --> J[Governed Output<br/>(Markdown / Code)]
-        J --> K[Closure Ritual<br/>(AGENTS.md §3)]
-        K --> L[Memory Consolidation Engine]
+        I --> J["Governed Output<br/>(Markdown / Code)"]
+        J --> K["Closure Ritual<br/>(AGENTS.md §3)"]
+        K --> L["Memory Consolidation Engine"]
 
-        L --> M[Update CURRENT_STATE.md]
-        L --> N[Append to LOG.md & IMPROVEMENT_LOG.md]
-        L --> O[Delete SESSION_SCRATCH.md]
+        L --> M["Update CURRENT_STATE.md"]
+        L --> N["Append to LOG.md & IMPROVEMENT_LOG.md"]
+        L --> O["Delete SESSION_SCRATCH.md"]
 
     end
 
