@@ -38,6 +38,76 @@ When working on medium or large projects with AI assistants (like Gemini, Claude
 
 ## 🏗️ System Architecture
 
+Agent Kit's architecture separates the deterministic infrastructure (rules, scripts, and memory) from the probabilistic execution (the language model). The following diagram maps the logical flow to the actual files and scripts of the system:
+
+```mermaid
+graph TD
+
+    %% =================================================
+    %% DETERMINISTIC GOVERNANCE LAYER (TECHNICAL)
+    %% =================================================
+    subgraph DG["DETERMINISTIC GOVERNANCE LAYER"]
+
+        A[👤 User / IDE / AI]
+        B[AGENTS.md<br/>(Universal Entry Point)]
+
+        A --> B
+        B --> C[Session Initialization Ritual<br/>(core_scripts/start_session.py)]
+        C --> D[Context Ingestion<br/>(core_input/ & generate_index.py)]
+
+        subgraph GE["Governance Engine"]
+            D --> E[Hierarchy (HIERARCHY.md)<br/>Policies (RULES.md) • Role (ROLE.md)]
+            E --> F{Consistency Validation<br/>(validate_hierarchy.py)}
+
+            F -->|Invalid State| G[Controlled KO State<br/>Exit Code != 0 / Execution Blocked]
+            F -->|Valid State| H[Context Assembly Engine]
+        end
+
+        subgraph MEM["Tiered Memory Architecture"]
+            M1[Active Memory<br/>(CURRENT_STATE.md)]
+            M2[Working Memory<br/>(SESSION_SCRATCH.md)]
+            M3[Reference Memory<br/>(LOG.md / Reference Archive)]
+
+            M1 --> H
+            M2 --> H
+            M3 -.->|On Demand| H
+        end
+
+    end
+
+    %% =================================================
+    %% PROBABILISTIC AI LAYER
+    %% =================================================
+    subgraph AI_LAYER["PROBABILISTIC AI LAYER"]
+        H --> I[LLM Runtime<br/>Reasoning & Generation]
+    end
+
+    %% =================================================
+    %% DETERMINISTIC CONTINUITY LAYER
+    %% =================================================
+    subgraph CL["DETERMINISTIC CONTINUITY LAYER"]
+
+        I --> J[Governed Output<br/>(Markdown / Code)]
+        J --> K[Closure Ritual<br/>(AGENTS.md §3)]
+        K --> L[Memory Consolidation Engine]
+
+        L --> M[Update CURRENT_STATE.md]
+        L --> N[Append to LOG.md & IMPROVEMENT_LOG.md]
+        L --> O[Delete SESSION_SCRATCH.md]
+
+    end
+
+    %% =================================================
+    %% STYLING
+    %% =================================================
+    style G fill:#f9cccc,stroke:#900,stroke-width:2px
+    style H fill:#ccccff,stroke:#333,stroke-width:2px
+    style I fill:#d9ead3,stroke:#333,stroke-width:2px
+    style DG fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+    style AI_LAYER fill:#f3f4f6,stroke:#ccc,stroke-dasharray: 5 5
+    style CL fill:#f8f9fa,stroke:#ccc,stroke-dasharray: 5 5
+```
+
 The kit implements a **multi-layer memory** pattern to optimize the LLM's context window:
 
 1. **Active State (`CURRENT_STATE.md`):** What is read at the start of each session. Contains where the work was left off and the immediate next step. Short and direct.
