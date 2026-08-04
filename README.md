@@ -182,7 +182,8 @@ For the AI agent to understand your rules, the system rituals must mandatorily l
 ```text
 .
 ├── .agents/                   # Workspace customization folder.
-│   └── AGENTS.md              # Universal entry point. The AI reads it with priority.
+│   ├── AGENTS.md              # Universal entry point. The AI reads it with priority.
+│   └── skills/                # Operational skills (e.g., Mirror Mode).
 ├── autoignite.ini             # Local configuration file (ignored in Git).
 ├── core/                      # Portable unit with the intelligence and project rules.
 │   ├── PROJECT.md / ROLE.md   # What we are doing and how the agent should behave.
