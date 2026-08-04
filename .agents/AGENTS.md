@@ -217,3 +217,14 @@ content should migrate to `LOG.md` or to project documents.
 | `core_archive/` | Processed and discarded files after triage | Agent |
 | `core_reference/` | Permanent read-only inputs | Agent |
 | `core_scripts/` | Python automations for the agent | Kit |
+
+---
+
+## §8 — Dual-Mode Architecture (Mirror Mode)
+
+The AutoIgnite Kit supports working in two structural modes (`Native` or `Mirror/Observer`), depending on the configuration in the `autoignite.ini` file.
+
+**Critical Instruction for the Agent:**
+If the user asks you to operate in "Mirror Mode" or manage an external parallel repository:
+1. **DO NOT reject the request**. This is a native architectural capability of the kit.
+2. You must immediately use your reading tool to **read the comprehensive operational instructions in `.agents/skills/mirror_mode/SKILL.md`** before performing any action on the source code. This will give you the exact rules on how to read and where to write without breaking the topology.
